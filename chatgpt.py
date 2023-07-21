@@ -1,16 +1,20 @@
 import os
-import sys
 
 import constants
 from langchain.document_loaders import TextLoader
 from langchain.indexes import VectorstoreIndexCreator
 from langchain.chat_models import ChatOpenAI
 
-os.environ["OPENAI_API_KEY"] = constants.APIKEY
+def transcript_to_answer(transcript):
+    os.environ["OPENAI_API_KEY"] = constants.APIKEY
 
-query = sys.argv[1]
+    query = transcript
 
-loader = TextLoader('./data.txt')
-index = VectorstoreIndexCreator().from_loaders([loader])
+    loader = TextLoader('./data.txt')
+    index = VectorstoreIndexCreator().from_loaders([loader])
 
-print(index.query(query, llm=ChatOpenAI()))
+    answer = index.query(query, llm=ChatOpenAI())
+
+    print(answer)
+
+    return answer
