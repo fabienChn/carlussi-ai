@@ -1,21 +1,21 @@
-import audioop
-import base64
-import json
-import os
 from flask import Flask, request
-from flask_sock import Sock, ConnectionClosed
-from twilio.twiml.voice_response import VoiceResponse, Start
+from flask_sockets import Sockets
 from twilio.rest import Client
-import vosk
+from twilio.twiml.voice_response import Start, VoiceResponse
+from transformers import Wav2Vec2ForCTC, Wav2Vec2Tokenizer
+from websocket import WebSocketConnectionClosedException as ConnectionClosed
+import torchaudio
+import json
+import base64
+import numpy as np
 
 app = Flask(__name__)
-sock = Sock(app)
+sock = Sockets(app)
 twilio_client = Client()
-model = vosk.Model('vosk-model-small-de-0.15')
 
-CL = '\x1b[0K'
-BS = '\x08'
-
+# Initialize Wav2Vec model
+tokenizer = Wav2Vec2Tokenizer.from_pretrained("facebook/wav2vec2-base-960h")
+model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-base-960h")
 
 @app.route('/call', methods=['POST'])
 def call():
@@ -29,11 +29,9 @@ def call():
     print(f'Incoming call from {request.form["From"]}')
     return str(response), 200, {'Content-Type': 'text/xml'}
 
-
 @sock.route('/stream')
 def stream(ws):
     """Receive and transcribe audio stream."""
-    rec = vosk.KaldiRecognizer(model, 16000)
     while True:
         try:
             message = ws.receive()
@@ -42,17 +40,14 @@ def stream(ws):
             break
         if data.get('event') == 'media':
             audio = base64.b64decode(data['media']['payload'])
-            audio = audioop.ulaw2lin(audio, 2)
-            audio = audioop.ratecv(audio, 2, 1, 8000, 16000, None)[0]
-            if rec.AcceptWaveform(audio):
-                print(rec.Result())
-            else:
-                print(rec.PartialResult())
+            waveform, _ = torchaudio.load(audio, num_frames=16000)
+            inputs = tokenizer(waveform.numpy()[0], return_tensors="pt", padding=True)
+            logits = model(inputs.input_values.to("cpu"), attention_mask=inputs.attention_mask.to("cpu")).logits
+            predicted_ids = torch.argmax(logits, dim=-1)
+            transcription = tokenizer.decode(predicted_ids[0])
+            print(transcription)
         elif data.get('event') in ['connected', 'start', 'stop']:
             print(f"Received event: {data['event']}")
-    print(rec.FinalResult())
-
-
 
 if __name__ == '__main__':
     from pyngrok import ngrok
@@ -61,5 +56,4 @@ if __name__ == '__main__':
     number = twilio_client.incoming_phone_numbers.list()[0]
     number.update(voice_url=public_url + '/call')
     print(f'Waiting for calls on {number.phone_number}')
-
     app.run(port=port)
