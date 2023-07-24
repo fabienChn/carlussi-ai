@@ -1,2 +1,0 @@
-# APIKEY = "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"
-APIKEY = "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"
