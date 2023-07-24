@@ -1,17 +1,24 @@
-import audioop
+import io
+import soundfile
 import base64
 import json
-import os
+import ssl
 from flask import Flask, request
 from flask_sock import Sock, ConnectionClosed
 from twilio.twiml.voice_response import VoiceResponse, Start
 from twilio.rest import Client
-import vosk
+
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Ignore SSL certificate verification (not recommended for production use)
+ssl._create_default_https_context = ssl._create_default_https_context = ssl._create_unverified_context
 
 app = Flask(__name__)
 sock = Sock(app)
 twilio_client = Client()
-model = vosk.Model('vosk-model-small-de-0.15')
 
 CL = '\x1b[0K'
 BS = '\x08'
@@ -33,7 +40,6 @@ def call():
 @sock.route('/stream')
 def stream(ws):
     """Receive and transcribe audio stream."""
-    rec = vosk.KaldiRecognizer(model, 16000)
     while True:
         try:
             message = ws.receive()
@@ -42,16 +48,15 @@ def stream(ws):
             break
         if data.get('event') == 'media':
             audio = base64.b64decode(data['media']['payload'])
-            audio = audioop.ulaw2lin(audio, 2)
-            audio = audioop.ratecv(audio, 2, 1, 8000, 16000, None)[0]
-            if rec.AcceptWaveform(audio):
-                print(rec.Result())
-            else:
-                print(rec.PartialResult())
+            with io.BytesIO(audio) as audio_stream:
+                audio_data, sample_rate = soundfile.read(audio_stream, dtype='int16')
+
+            # audio = audioop.ulaw2lin(audio, 2)
+            # audio = audioop.ratecv(audio, 2, 1, 8000, 16000, None)[0]
+            print(audio, audio_data, sample_rate)
+            
         elif data.get('event') in ['connected', 'start', 'stop']:
             print(f"Received event: {data['event']}")
-    print(rec.FinalResult())
-
 
 
 if __name__ == '__main__':
