@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "carlussi-ai-394516",
+  "private_key_id": "e8d90f760cd10f63f4ab82d51bee824d5b4d37bf",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDDNKAQeSJSAnYp\nELRc4feNV5pATgHMxcGFsyQudXfObCeuQYptC2CxDJWAMy8W/X41JgXkXBYVZeJM\nvrNEKZOmYOVjBqfrc4jdk05EZHhNVxY4kRfYJ2v2HJS0XZV1zr7NrLcRhYBzOpWc\nZ2EeYTwmXoVG781ueBacMyVCL4sePzwHNpQsOniVKHqUb8ZFOP7hMFtNI16GCgN6\nkqShTtZqAfonKU0Elfx8aPbXQ1turmRUDMLXDXI6cBomBXxdQEdjOcihChAfxK4U\nz93Ru2ARYBnoVby08HL6FR8pf0n6Q5OOaYy9bz+3Dfidx/HL/iwjXDytRuBfc6FN\nFndtKbg3AgMBAAECggEAKDUfvyTkT9YX9o9tRzB4KBHiQNqQflhBa0Oh8Tva6JbY\neYkgdSOB0BYSeSyRx3+BTns9fXMGTXQF797b1+9kbUHKHeKSFepfR5x+45F6Qhvt\nBMvGCIzeLPxoGNqp3XEvVff8YUyJT7LCfEvC8ln+5LxVYW4ld1qe9Z+HTiGy2xC5\nNTmYfT0n1uSVutf9ROF66/c889+Vs0ty1ZO0tdXkXSaPofqFmicGpClaBGYS00Hv\n+2Gdp4bLLznJk2u3STSdr2E/0HpqblxoDRwFhhzM5RVepOMeBMGNzfDw08J42JvF\n26NphfnrYAC6iCxVIwDTrZ3zCf+CZXodYFIweLIWCQKBgQDkNzXG3GyyviaPtJol\nOlEVEMLIu+78gEA/dY1V5iFrAh2F70RJTwlB05vZgZWA+mFB1bqK7G6Wg/MSrqeQ\nt8raXBXrVgKIHx1m/g6nYx1DUffP9zZS2XLy0JjfVLnGsWvKraHPp7FER19mIMlw\n0ON06cnUABj0Lq/sCoVKwNgTcwKBgQDa+Jcx4gabh4nrCXKYUkrkYcSVJO1GTIqX\ny1IlTX68J8Ge2+VAAMnWFAt8KUgkp9T9rXSLEpHpO+wWmIyKXFCjGGr6JJ9JLYa1\nQxeQeO2XgZj04b9EFTAdibcjWjL7jhbLX6C09ffpYjcbA70SJZD27869trVDimY8\nRy8E1Mc/LQKBgQCnzkTXlWrDv3fhQP37E7ddEvb23OFsfu0+/DPRjqbR5TtKKVX/\nxYLcCTnWpCcHMJPk8b/5uMHUIO/Rs+T4T3x0NTPU2GiCKMbY3URvJjz1LEdYfsFO\nCCAylNljlgwIIptM64FIjFiXCRgHo2Ibdy1Y4TMLlIrEubOXj2DVR5laKwKBgQDa\nR4jgrwILNFeltqtHcHE7rMI8Mq1csJxPqNzgVpoJklAOvgGPhbmt8Blq0fQapjtK\nDgjpQb+2EofMFpGys0em7YZmiO9IEVwBgToSSJn/t670Hb1+buih6VBoq1e7L+9F\nGLSo77EMM13fTiDB4DTcFD2xHFshUuuLFyKl3D4qmQKBgBjm1UQqdBAMZo5VYlt0\n04ZPVLxJ7gQ59qqSPOLRwSwrvf2ugV4Ffnor7S+xG+IosSL0/r+oenfToOZiKXlR\njAE6jwdXtcqSHXoc7KtraJ94G12XPk624vgR2U3IFhgBz61zPq/UhWfi9WYsQU27\nKSQkQf7bCTXnn//aKWdtFsuc\n-----END PRIVATE KEY-----\n",
+  "client_email": "carlo01@carlussi-ai-394516.iam.gserviceaccount.com",
+  "client_id": "102539816679504273245",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/carlo01%40carlussi-ai-394516.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
